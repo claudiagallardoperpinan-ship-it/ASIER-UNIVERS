@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>2025 — El año en que el cosmos conspiró a nuestro favor</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+  :root {
+    --negro: #05070f;
+    --dorado: #c8a96e;
+    --dorado-claro: #e8c98a;
+    --blanco: #f0ede6;
+    --gris: #8a8fa0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--negro); color: var(--blanco); font-family: 'Space Grotesk', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  html { scroll-behavior: smooth; }
+
+  /* ESTRELLAS */
+  .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  .star { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--dur) infinite alternate; opacity: var(--op); }
+  @keyframes twinkle { from { opacity: var(--op); } to { opacity: calc(var(--op) * 0.2); } }
+
+  /* LOGIN */
+  #login-screen { position: fixed; inset: 0; background: var(--negro); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; gap: 2rem; }
+  .login-title { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 4vw, 2.5rem); color: var(--dorado); text-align: center; }
+  .login-subtitle { font-size: 0.9rem; color: var(--gris); text-align: center; letter-spacing: 0.1em; text-transform: uppercase; }
+  .login-form { display: flex; flex-direction: column; gap: 1rem; align-items: center; width: min(320px, 90vw); }
+  .login-input { width: 100%; padding: 0.9rem 1.2rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(200,169,110,0.3); border-radius: 4px; color: var(--blanco); font-family: 'Space Grotesk', sans-serif; font-size: 1rem; letter-spacing: 0.2em; text-align: center; outline: none; transition: border-color 0.3s; }
+  .login-input:focus { border-color: var(--dorado); }
+  .login-input::placeholder { color: var(--gris); letter-spacing: 0.1em; }
+  .login-btn { width: 100%; padding: 0.9rem; background: transparent; border: 1px solid var(--dorado); color: var(--dorado); font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.3s; }
+  .login-btn:hover { background: var(--dorado); color: var(--negro); }
+  .login-error { color: #e57373; font-size: 0.8rem; letter-spacing: 0.05em; display: none; }
+
+  /* APP */
+  #app { display: none; position: relative; z-index: 1; }
+
+  /* PORTADA */
+  #portada { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; position: relative; background: radial-gradient(ellipse at 50% 60%, #0d1a2e 0%, var(--negro) 70%); }
+  .portada-year { font-family: 'Space Grotesk', sans-serif; font-size: clamp(5rem, 20vw, 14rem); font-weight: 700; color: transparent; -webkit-text-stroke: 1px rgba(200,169,110,0.4); line-height: 1; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%); pointer-events: none; user-select: none; }
+  .portada-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-top: 8rem; }
+  .portada-titulo { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.2rem, 3vw, 2rem); color: var(--blanco); max-width: 600px; line-height: 1.5; }
+  .portada-nasa { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; margin-top: 1rem; }
+  .portada-colaboracion { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gris); }
+  .nasa-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: #e8372a; }
+  .portada-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--gris); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; animation: bounce 2s infinite; cursor: pointer; }
+  .portada-scroll::after { content: '↓'; font-size: 1.2rem; }
+  @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+
+  /* SECCIONES */
+  .seccion { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem; max-width: 680px; margin: 0 auto; }
+
+  /* BIENVENIDA */
+  #bienvenida { text-align: center; gap: 1.5rem; }
+  .bienvenida-hola { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.5rem); color: var(--dorado); }
+  .bienvenida-dedicatoria { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--blanco); line-height: 1.8; max-width: 500px; }
+  .bienvenida-fecha { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gris); }
+
+  /* AVISO FECHA ESPECIAL */
+  .aviso-especial {
+    background: linear-gradient(135deg, #0d1e35 0%, #0a1525 100%);
+    border: 1px solid rgba(200,169,110,0.4);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    max-width: 500px;
+    text-align: center;
+    display: none;
+  }
+  .aviso-especial-icono { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .aviso-especial-texto { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(0.9rem, 2vw, 1.05rem); line-height: 1.7; color: var(--blanco); }
+
+  /* BOTÓN VER HOY */
+  .btn-ver-hoy { margin-top: 0.5rem; padding: 1rem 2.5rem; background: transparent; border: 1px solid var(--dorado); color: var(--dorado); font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem; }
+  .btn-ver-hoy:hover { background: var(--dorado); color: var(--negro); }
+  .btn-ver-hoy::before { content: '✦'; font-size: 0.7rem; }
+
+  /* INTRO */
+  #intro { gap: 2.5rem; }
+  .intro-texto { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1rem, 2.5vw, 1.25rem); line-height: 1.9; color: var(--blanco); }
+  .intro-texto p + p { margin-top: 1.5rem; }
+
+  /* DEDICATORIA */
+  #dedicatoria { text-align: center; gap: 1.5rem; }
+  .dedicatoria-linea { width: 1px; height: 60px; background: var(--dorado); opacity: 0.4; margin: 0 auto; }
+  .dedicatoria-texto { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.1rem, 2.5vw, 1.4rem); line-height: 1.9; color: var(--blanco); }
+  .dedicatoria-firma { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dorado); margin-top: 0.5rem; }
+
+  /* FECHAS ESPECIALES SECCIÓN */
+  #fechas-especiales-seccion {
+    padding: 4rem 2rem;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .fechas-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--dorado);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .fechas-subtitulo {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gris);
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .fechas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .fecha-card {
+    background: linear-gradient(135deg, #0d1e35 0%, #0a1525 100%);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 8px;
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .fecha-card:hover { border-color: rgba(200,169,110,0.6); transform: translateY(-2px); }
+  .fecha-card-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #5dba8a; }
+  .fecha-card-nombre { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--blanco); }
+  .fecha-card-dias { font-size: 0.75rem; color: var(--gris); }
+
+  /* GALERÍA */
+  #galeria { position: fixed; inset: 0; background: var(--negro); z-index: 500; display: none; flex-direction: column; overflow: hidden; }
+  #galeria.abierta { display: flex; }
+  .galeria-header { position: absolute; top: 0; left: 0; right: 0; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; z-index: 10; background: linear-gradient(to bottom, rgba(5,7,15,0.9) 0%, transparent 100%); }
+  .galeria-fecha { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gris); }
+  .galeria-cerrar { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--blanco); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .galeria-cerrar:hover { background: rgba(255,255,255,0.1); }
+  .galeria-contenido { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+  .galeria-dia { min-height: 100vh; display: flex; flex-direction: column; position: relative; }
+  .galeria-imagen-wrap { width: 100%; max-height: 60vh; overflow: hidden; flex-shrink: 0; position: relative; background: #0a0e1a; display: flex; align-items: center; justify-content: center; }
+  .galeria-imagen { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .galeria-especial-badge { position: absolute; top: 1rem; left: 1rem; background: rgba(45,106,79,0.85); border: 1px solid rgba(93,186,138,0.5); color: #5dba8a; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .galeria-texto { padding: 1.5rem 1.5rem 5rem; background: var(--negro); flex: 1; }
+  .galeria-titulo { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 3vw, 1.6rem); color: var(--blanco); line-height: 1.3; margin-bottom: 1rem; }
+  .galeria-descripcion { font-size: clamp(0.85rem, 2vw, 0.95rem); line-height: 1.8; color: rgba(240,237,230,0.75); }
+  .galeria-nav { position: fixed; bottom: 0; left: 0; right: 0; padding: 1rem 1.5rem; background: linear-gradient(to top, rgba(5,7,15,0.95) 0%, transparent 100%); display: flex; align-items: center; justify-content: space-between; z-index: 10; }
+  .galeria-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(200,169,110,0.3); color: var(--dorado); padding: 0.7rem 1.2rem; font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
+  .galeria-btn:hover { background: rgba(200,169,110,0.15); }
+  .galeria-btn:disabled { opacity: 0.3; cursor: default; }
+  .galeria-contador { font-size: 0.75rem; color: var(--gris); letter-spacing: 0.1em; }
+
+  /* LOADING */
+  .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 4rem; color: var(--gris); font-size: 0.85rem; letter-spacing: 0.1em; }
+  .loading-dots { display: flex; gap: 6px; }
+  .loading-dot { width: 6px; height: 6px; background: var(--dorado); border-radius: 50%; display: inline-block; animation: pulse 1.4s infinite ease-in-out; }
+  .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+
+  /* PIE */
+  .pie { text-align: center; padding: 3rem 2rem; color: var(--gris); font-size: 0.75rem; letter-spacing: 0.1em; border-top: 1px solid rgba(255,255,255,0.05); }
+
+  /* FADE */
+  .fade-in { animation: fadeIn 0.5s ease forwards; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  .no-select { user-select: none; -webkit-user-select: none; }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:2rem;position:relative;z-index:1;padding:2rem">
+    <div class="login-title">2025</div>
+    <div class="login-subtitle">El año en que el cosmos conspiró a nuestro favor</div>
+    <div class="login-form">
+      <input type="password" class="login-input" id="pwd-input" placeholder="Contraseña" autocomplete="off">
+      <button class="login-btn" onclick="checkPassword()">Entrar al universo</button>
+      <div class="login-error" id="login-error">Contraseña incorrecta ✦</div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+  <!-- PORTADA -->
+  <section id="portada">
+    <div class="portada-year">2025</div>
+    <div class="portada-content">
+      <div class="portada-titulo">El año en que el cosmos<br>(por fin) conspiró a nuestro favor</div>
+      <div class="portada-nasa">
+        <div class="portada-colaboracion">Con la colaboración especial de:</div>
+        <div class="nasa-logo">NASA</div>
+      </div>
+    </div>
+    <div class="portada-scroll" onclick="document.getElementById('bienvenida').scrollIntoView()">Explorar</div>
+  </section>
+
+  <!-- BIENVENIDA -->
+  <section class="seccion" id="bienvenida">
+    <div class="bienvenida-fecha" id="bienvenida-fecha"></div>
+    <div class="bienvenida-hola" id="bienvenida-hola"></div>
+    <div class="bienvenida-dedicatoria" id="bienvenida-dedicatoria"></div>
+    <div class="aviso-especial" id="aviso-especial">
+      <div class="aviso-especial-icono">★</div>
+      <div class="aviso-especial-texto" id="aviso-especial-texto"></div>
+    </div>
+    <button class="btn-ver-hoy" onclick="abrirGaleria()">Ver la foto de hoy</button>
+  </section>
+
+  <!-- INTRO -->
+  <section class="seccion" id="intro">
+    <div class="intro-texto">
+      <p>En 2025, dos trayectorias que no estaban destinadas a encontrarse empezaron a curvar el espacio entre ellas. No como un milagro, ni como un accidente, sino como si el propio tejido del universo tuviera un margen de error reservado para lo impredecible.</p>
+      <p>Y así, sin traje espacial ni cuenta atrás oficial, también tuvimos la misma sensación de estar despegando hacia algo desconocido. No hay consenso sobre qué provocó este fenómeno en el espacio-tiempo, solo la evidencia de qué generó una supernova sin un final visible.</p>
+      <p>Pero el universo no espera a que lo entendamos. Simplemente ocurre.</p>
+      <p>Bienvenido a la primera historia que se cuenta sola,<br>la de lo inevitable,<br>la nuestra.</p>
+    </div>
+  </section>
+
+  <!-- DEDICATORIA -->
+  <section class="seccion" id="dedicatoria">
+    <div class="dedicatoria-linea"></div>
+    <div class="dedicatoria-texto">
+      La velocidad de la luz son 299.792 km por segundo.<br>
+      Este año a tu lado ha pasado todavía más rápido.
+    </div>
+    <div class="dedicatoria-firma">Te quiero, Asier.</div>
+    <div class="dedicatoria-linea"></div>
+  </section>
+
+  <!-- FECHAS ESPECIALES -->
+  <section id="fechas-especiales-seccion">
+    <div class="fechas-titulo">Nuestras fechas</div>
+    <div class="fechas-subtitulo">Los días que cambiaron la órbita</div>
+    <div class="fechas-grid" id="fechas-grid"></div>
+  </section>
+
+  <!-- DESCARGA PDF -->
+  <div id="descarga-seccion" style="padding: 3rem 2rem; max-width: 680px; margin: 0 auto; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gris);margin-bottom:1rem">El libro completo</div>
+    <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1rem,2.5vw,1.2rem);color:var(--blanco);margin-bottom:1.5rem;line-height:1.7">365 días. 365 fotos de la NASA.<br>Una historia que empezó sin avisar.</div>
+    <a href="https://drive.google.com/uc?export=download&id=1nO4BNr3hINBIa_TkkFMJPBDEm4T4UdJY"
+       target="_blank"
+       style="display:inline-flex;align-items:center;gap:0.6rem;padding:1rem 2.5rem;background:transparent;border:1px solid var(--dorado);color:var(--dorado);font-family:'Space Grotesk',sans-serif;font-size:0.85rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:4px;transition:all 0.3s;"
+       onmouseover="this.style.background='var(--dorado)';this.style.color='#05070f'"
+       onmouseout="this.style.background='transparent';this.style.color='var(--dorado)'">
+      ↓ Descargar el libro en PDF
+    </a>
+    <div style="margin-top:1rem;font-size:0.7rem;color:var(--gris);letter-spacing:0.1em">PDF · 365 páginas</div>
+  </div>
+
+  <div class="pie">Hecho con amor y con la ayuda de la NASA ✦ 2025</div>
+
+</div>
+
+<!-- GALERÍA -->
+<div id="galeria">
+  <div class="galeria-header">
+    <div class="galeria-fecha" id="galeria-fecha-header"></div>
+    <button class="galeria-cerrar" onclick="cerrarGaleria()">✕</button>
+  </div>
+  <div class="galeria-contenido no-select" id="galeria-contenido"></div>
+  <div class="galeria-nav">
+    <button class="galeria-btn" id="galeria-btn-ant" onclick="navegarGaleria(-1)">← Anterior</button>
+    <div class="galeria-contador" id="galeria-contador"></div>
+    <button class="galeria-btn" id="galeria-btn-sig" onclick="navegarGaleria(1)">Siguiente →</button>
+  </div>
+</div>
+
+<script>
+const NASA_KEY = "02KT5dFT2jhQHmD24iGMobTM7cyU74Lrp7DQMt7Q";
+const PASSWORD = "2025BRUTAL";
+const FECHA_PAREJA = new Date('2025-06-18');
+
+const FECHAS_ESPECIALES = {
+  "2025-04-12": { nombre: "El día que nos conocimos", icono: "✨" },
+  "2025-04-13": { nombre: "Nuestro primer beso", icono: "💫" },
+  "2025-06-18": { nombre: "El día que empezamos", icono: "🪐" },
+  "2025-07-20": { nombre: "Tu cumpleaños", icono: "🎂" },
+  "2025-09-17": { nombre: "Mi cumpleaños", icono: "🎂" },
+  "2025-10-11": { nombre: "Nueva York juntos", icono: "✈️" },
+  "2025-12-31": { nombre: "Nuestra primera nochevieja", icono: "🥂" }
+};
+
+function diasDesde(fechaStr) {
+  const hoy = new Date();
+  hoy.setHours(0,0,0,0);
+  const fecha = new Date(fechaStr);
+  fecha.setHours(0,0,0,0);
+  return Math.floor((hoy - fecha) / (1000*60*60*24));
+}
+
+function mensajeEspecial(dateStr) {
+  const dias = diasDesde(dateStr);
+  const d = dias === 1 ? "día" : "días";
+  switch(dateStr) {
+    case "2025-04-12":
+      return `Hoy hace ${dias} ${d} que te vi reírte por primera vez y decidí que iba a ser un problema. Lo sigue siendo.`;
+    case "2025-04-13":
+      return `Hoy hace ${dias} ${d} que nos besamos delante de un neón. Desde entonces el neón ese es nuestro. No sabe que lo es, pero lo es.`;
+    case "2025-06-18":
+      return `Hoy hace ${dias} ${d} que me llevaste a un rooftop y me regalaste un collar. Técnicamente fue una trampa. Caí encantada.`;
+    case "2025-07-20":
+      return `Feliz cumpleaños, Malo. El universo tardó ${diasDesde('2025-07-20')} ${d} en perfeccionarte.`;
+    case "2025-09-17":
+      return `Hoy es mi cumpleaños. Y este año lo celebro sabiendo que eres el mejor regalo que me ha dado el universo.`;
+    case "2025-10-11":
+      return `Hoy hace ${dias} ${d} que estuvimos en Nueva York. Tú mirando el skyline. Yo mirándote a ti. Claramente uno de los dos tenía mejor vista.`;
+    case "2025-12-31":
+      return `Primera nochevieja juntos. El universo lleva 13.800 millones de años expandiéndose. Contigo lo hace mucho más rápido.`;
+    default: return '';
+  }
+}
+
+const TEXTOS_MES = {
+  "2025-01": `<p>Enero fue raro. De esos meses en los que sabes que algo tiene que cambiar pero no sabes muy bien el qué ni el cómo. Tenía ganas de empezar el año con ilusión, pero la ilusión no siempre sabe a dónde ir.</p><p>Así que enero fue eso: ganas sin destino. Aunque sin saberlo, ya estaba poniendo rumbo a un nuevo planeta.</p>`,
+  "2025-02": `<p>Febrero fue Valencia. Como siempre que necesito volver a mí misma, volví a casa.</p><p>Madrid me da vida pero Valencia me recarga. Y ese mes la necesité más de lo normal, como quien busca oxígeno antes de un salto que todavía no sabe que va a dar.</p>`,
+  "2025-03": `<p>Marzo fue fuego. Las Fallas llegaron como cada año, con su ruido y su olor a pólvora y esa alegría que no necesita explicación.</p><p>Pero entre celebración y celebración, seguía cargando con algo que no sabía muy bien cómo soltar. Como si supiera que había que quemarlo, pero no encontrara el momento.</p><p>Quizás el universo ya me estaba dando pistas.</p>`,
+  "2025-04": `<p>Abril llegó sin avisar y la lluvia lo mojó absolutamente todo.</p><p>La primera vez que te reíste delante de mí, ya supe que si había salida, iba a ser muy difícil encontrarla.</p><p>Asier, te apuesto un beso a que me vas a querer para siempre.</p>`,
+  "2025-05": `<p>Mayo en Menorca.</p><p>Me dijiste que me querías y juro que en ese momento el sol alcanzó el máximo brillo de su historia. Por supuesto, después de eso, claro que nos quemamos.</p>`,
+  "2025-06": `<p>Junio empezó con el miedo a que te fueras.</p><p>Y justo fue el mes en que decidiste quedarte.</p><p>Y sin saberlo, cambiaste mi órbita para siempre. Y roté y me trasladé, de una, al inicio de lo nuestro.</p>`,
+  "2025-07": `<p>Julio eres tú.</p><p>De La Anunciación nos fuimos a buscar un Porsche y acabamos montados en un Ferrari. Que no es lo mismo, pero casi.</p><p>Y conocimos a Frida. No sé si te acuerdas de ella, pero creo que después de mí, siempre ha sido tu verdadero crush.</p>`,
+  "2025-08": `<p>En agosto descubrí que me había acostumbrado demasiado a tenerte cerca.</p>`,
+  "2025-09": `<p>En septiembre descubrí que eliges los regalos como alguien que me conoce desde siempre. Y que volver a la rutina era mi vida entera, era volver a despertarme contigo en una buhardilla.</p>`,
+  "2025-10": `<p>En octubre ya nos decíamos te quiero a diario. Dejó de ser una fase lunar para convertirse en un estado de permanencia.</p><p>Pero Asier, Nueva York en otoño fue cumplir un sueño que ya creía infantil y que nunca imaginé que pudiera hacerme tan feliz compartir con alguien. Gracias.</p>`,
+  "2025-11": `<p>Noviembre estuvo a punto de mandarme a Viena. Pero me quedé.</p><p>Te cociné albóndigas por primera vez y un elfo malvado llegó a casa sin que nadie lo invitara.</p><p>Al final, noviembre fue eso: quedarse, cocinar y aprender a convivir juntos en un bajo sin mucha luz. O con toda la que tú y yo necesitábamos.</p>`,
+  "2025-12": `<p>En diciembre decidimos que queríamos el mismo techo.</p><p>Y empezamos a buscar. Sin saber muy bien qué (dentro de la M-30, eso sí) pero sabiendo exactamente con quién. Contigo, Asier, siempre.</p>`
+};
+
+const NOMBRES_MES = {
+  "01":"Enero","02":"Febrero","03":"Marzo","04":"Abril",
+  "05":"Mayo","06":"Junio","07":"Julio","08":"Agosto",
+  "09":"Septiembre","10":"Octubre","11":"Noviembre","12":"Diciembre"
+};
+
+const BIENVENIDAS = [
+  { nombre: "Titi", texto: "Hoy la NASA ha fotografiado algo increíble. Tú sigues siendo más increíble." },
+  { nombre: "Malo", texto: "¿Sabías que el universo tiene 13.800 millones de años? Pues yo te quiero desde antes." },
+  { nombre: "Pequeño", texto: "Las estrellas tardan miles de años en llegar a nosotros. Tú tardaste una cena." },
+  { nombre: "Titi", texto: "Plutón sigue sin ser un planeta. Tú sigues siendo el mío." },
+  { nombre: "Malo", texto: "El universo se expande cada día un poco más. Yo también, desde que te conozco. Y no es por las albóndigas." },
+  { nombre: "Pequeño", texto: "Hay mil millones de galaxias ahí fuera. Y el elfo malvado sigue siendo lo más extraño que ha pasado por nuestra vida." },
+  { nombre: "Titi", texto: "El sol vale aproximadamente 3.828 × 10²⁶ vatios. Pero tú no lo cambiarías por Bitcoin, ¿verdad? ¿Verdad?" },
+  { nombre: "Malo", texto: "Los agujeros negros absorben todo lo que se acerca. Tú haces lo mismo con las oportunidades de inversión." },
+  { nombre: "Pequeño", texto: "Saturno tiene anillos de hielo y roca valorados en cero euros. Sé que esto te rompe un poco el corazón." },
+  { nombre: "Titi", texto: "La NASA gasta millones en explorar el universo. Tú lo habrías tokenizado ya." },
+  { nombre: "Malo", texto: "Los astrónomos llevan años buscando vida en otros planetas. Yo solo llevo un año buscándote a ti y ya fue suficiente." },
+  { nombre: "Pequeño", texto: "El universo se expande a 70 km por segundo. Tu cartera de inversiones, con suerte, la mitad." },
+  { nombre: "Titi", texto: "Marte es rojo. El Real Madrid es blanco. Como los agujeros blancos, que teóricamente existen pero nadie ha visto nunca. Casualidad, lo dudo." },
+  { nombre: "Malo", texto: "Los científicos llevan años buscando vida inteligente en el universo. Yo la encontré. Aunque le guste el Madrid, nadie es perfecto." },
+  { nombre: "Pequeño", texto: "El universo tiene millones de estrellas. El Real Madrid tiene once. Y sin embargo hablas de ellos igual." },
+
+  { nombre: "Pequeño", texto: "Saturno tiene 146 lunas. El Madrid tiene millones de fans. Tú eres el único al que perdono por ello." },
+  { nombre: "Titi", texto: "Los astronautas en el espacio flotan sin esfuerzo. Sé que eso te parece el deporte ideal." },
+  { nombre: "Malo", texto: "Hay cuerpos celestes que llevan miles de años sin moverse. Tú los entiendes perfectamente desde la portería." },
+  { nombre: "Pequeño", texto: "Los científicos dicen que el universo tiende al mínimo esfuerzo. Tú lo descubriste antes que ellos jugando de portero de balonmano." },
+  { nombre: "Titi", texto: "En el espacio no hay gravedad y todo flota. En el balonmano hay que correr. Por eso elegiste la portería. Lógica aplastante." },
+  { nombre: "Malo", texto: "La NASA lleva años rastreando señales del espacio. Yo solo necesito rastrear dónde has escondido las cookies." },
+  { nombre: "Pequeño", texto: "El universo lleva 13.800 millones de años expandiéndose. Las cookies de casa llevan 13 minutos. Misterio resuelto." },
+  { nombre: "Titi", texto: "Las cookies del universo se llaman quarks. Las tuyas se llaman con pepitas de chocolate y son las primeras en desaparecer." },
+];
+
+// ESTRELLAS
+function crearEstrellas() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 150; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    star.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--op:${Math.random()*0.7+0.1};--dur:${Math.random()*3+2}s;`;
+    container.appendChild(star);
+  }
+}
+
+// LOGIN
+function checkPassword() {
+  const input = document.getElementById('pwd-input').value;
+  if (input === PASSWORD) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    iniciarApp();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-input').focus();
+  }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+
+// FECHAS
+const FECHA_INICIO = new Date('2025-01-01');
+const FECHA_FIN = new Date('2025-12-31');
+
+function formatearFecha(date) {
+  return date.toISOString().split('T')[0];
+}
+
+function fechaHoy() {
+  const hoy = new Date();
+  // Siempre usamos el mismo día y mes pero en 2025
+  const en2025 = new Date(`2025-${String(hoy.getMonth()+1).padStart(2,'0')}-${String(hoy.getDate()).padStart(2,'0')}`);
+  if (en2025 < FECHA_INICIO) return new Date(FECHA_INICIO);
+  if (en2025 > FECHA_FIN) return new Date(FECHA_FIN);
+  return en2025;
+}
+
+function formatearFechaES(dateStr) {
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const [y, m, d] = dateStr.split('-');
+  return `${parseInt(d)} de ${meses[parseInt(m)-1]} de ${y}`;
+}
+
+// BIENVENIDA
+function mostrarBienvenida() {
+  const hoy = new Date();
+  const idx = hoy.getDate() % BIENVENIDAS.length;
+  const b = BIENVENIDAS[idx];
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const fechaStr = `${hoy.getDate()} de ${meses[hoy.getMonth()]} de ${hoy.getFullYear()}`;
+  document.getElementById('bienvenida-fecha').textContent = fechaStr;
+  document.getElementById('bienvenida-hola').textContent = `Hola, ${b.nombre}.`;
+  document.getElementById('bienvenida-dedicatoria').textContent = b.texto;
+
+  // Aviso fecha especial
+  const hoyStr = formatearFecha(hoy);
+  if (FECHAS_ESPECIALES[hoyStr]) {
+    const aviso = document.getElementById('aviso-especial');
+    document.getElementById('aviso-especial-texto').textContent = mensajeEspecial(hoyStr);
+    aviso.style.display = 'block';
+  }
+}
+
+// FECHAS ESPECIALES GRID
+function renderFechasEspeciales() {
+  const grid = document.getElementById('fechas-grid');
+  Object.entries(FECHAS_ESPECIALES).forEach(([dateStr, info]) => {
+    const dias = diasDesde(dateStr);
+    const card = document.createElement('div');
+    card.className = 'fecha-card';
+    card.innerHTML = `
+      <div class="fecha-card-label">${info.icono} ${formatearFechaES(dateStr)}</div>
+      <div class="fecha-card-nombre">${info.nombre}</div>
+      <div class="fecha-card-dias">Hace ${dias} días</div>
+    `;
+    card.onclick = () => abrirGaleriaEnFecha(dateStr);
+    grid.appendChild(card);
+  });
+}
+
+// CACHE Y FETCH
+const cache = {};
+async function fetchAPOD(dateStr) {
+  if (cache[dateStr]) return cache[dateStr];
+  try {
+    const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_KEY}&date=${dateStr}&thumbs=true`);
+    const data = await res.json();
+    cache[dateStr] = data;
+    return data;
+  } catch(e) { return null; }
+}
+
+// TRADUCCIÓN
+async function traducir(texto) {
+  if (!texto) return '';
+  try {
+    const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=es&dt=t&q=${encodeURIComponent(texto)}`);
+    const data = await res.json();
+    return data[0].map(t => t[0]).join('');
+  } catch(e) { return texto; }
+}
+
+// GALERÍA
+let fechaGaleria;
+let touchStartX = 0;
+
+function diasDesdeInicio(dateStr) {
+  const d = new Date(dateStr);
+  d.setHours(0,0,0,0);
+  const inicio = new Date(FECHA_INICIO);
+  inicio.setHours(0,0,0,0);
+  return Math.floor((d - inicio) / (1000*60*60*24));
+}
+
+function totalDias() {
+  return Math.floor((FECHA_FIN - FECHA_INICIO) / (1000*60*60*24)) + 1;
+}
+
+async function abrirGaleria() {
+  fechaGaleria = fechaHoy();
+  document.getElementById('galeria').classList.add('abierta');
+  document.body.style.overflow = 'hidden';
+  await cargarDiaGaleria(formatearFecha(fechaGaleria));
+}
+
+async function abrirGaleriaEnFecha(dateStr) {
+  fechaGaleria = new Date(dateStr);
+  document.getElementById('galeria').classList.add('abierta');
+  document.body.style.overflow = 'hidden';
+  await cargarDiaGaleria(dateStr);
+}
+
+function cerrarGaleria() {
+  document.getElementById('galeria').classList.remove('abierta');
+  document.body.style.overflow = '';
+}
+
+async function cargarDiaGaleria(dateStr) {
+  const contenido = document.getElementById('galeria-contenido');
+  const [y, m] = dateStr.split('-');
+  const mesKey = `${y}-${m}`;
+  const idx = diasDesdeInicio(dateStr);
+  const total = totalDias();
+
+  document.getElementById('galeria-fecha-header').textContent = formatearFechaES(dateStr);
+  document.getElementById('galeria-contador').textContent = `${idx + 1} / ${total}`;
+  document.getElementById('galeria-btn-ant').disabled = idx <= 0;
+  document.getElementById('galeria-btn-sig').disabled = idx >= total - 1;
+
+  contenido.innerHTML = `<div class="galeria-dia"><div class="loading" style="min-height:100vh"><div class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div><span>Cargando...</span></div></div>`;
+
+  const apod = await fetchAPOD(dateStr);
+  if (!apod || apod.error) {
+    contenido.innerHTML = `<div class="galeria-dia"><div class="loading" style="min-height:100vh"><span>Sin imagen para este día 🌌</span></div></div>`;
+    return;
+  }
+
+  const titulo = await traducir(apod.title || '');
+  const descripcion = await traducir(apod.explanation || '');
+
+  let imgUrl = '';
+  if (apod.media_type === 'image') {
+    imgUrl = apod.hdurl || apod.url;
+  } else {
+    imgUrl = apod.thumbnail_url || '';
+  }
+
+  const esEspecial = FECHAS_ESPECIALES[dateStr];
+  const textoMes = TEXTOS_MES[mesKey];
+  const nombreMes = NOMBRES_MES[m];
+
+  let htmlMes = '';
+  if (textoMes) {
+    htmlMes = `
+      <div class="galeria-dia" style="background:radial-gradient(ellipse at center, #0a1525 0%, var(--negro) 70%);align-items:center;justify-content:center;text-align:center;gap:2rem;padding:3rem 2rem;">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,10vw,5rem);color:var(--dorado)">${nombreMes}</div>
+        <div style="width:40px;height:1px;background:var(--dorado);opacity:0.4;margin:0 auto"></div>
+        <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(0.95rem,2.5vw,1.15rem);line-height:1.9;color:var(--blanco);max-width:500px">${textoMes}</div>
+      </div>
+    `;
+  }
+
+  contenido.innerHTML = htmlMes + `
+    <div class="galeria-dia fade-in">
+      <div class="galeria-imagen-wrap">
+        ${imgUrl ? `<img class="galeria-imagen" src="${imgUrl}" alt="${titulo}" loading="lazy">` : '<div style="height:40vh;display:flex;align-items:center;justify-content:center;color:var(--gris)">Sin imagen</div>'}
+        ${esEspecial ? `<div class="galeria-especial-badge">★ ${esEspecial.nombre}</div>` : ''}
+      </div>
+      <div class="galeria-texto">
+        <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gris);margin-bottom:0.75rem">${formatearFechaES(dateStr)}</div>
+        <div class="galeria-titulo">${titulo}</div>
+        <div class="galeria-descripcion">${descripcion}</div>
+      </div>
+    </div>
+  `;
+
+  contenido.scrollTo(0, 0);
+
+  contenido.ontouchstart = e => { touchStartX = e.touches[0].clientX; };
+  contenido.ontouchend = e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 60) navegarGaleria(diff > 0 ? 1 : -1);
+  };
+}
+
+async function navegarGaleria(delta) {
+  const idx = diasDesdeInicio(formatearFecha(fechaGaleria));
+  const nuevoIdx = idx + delta;
+  if (nuevoIdx < 0 || nuevoIdx >= totalDias()) return;
+  fechaGaleria = new Date(FECHA_INICIO);
+  fechaGaleria.setDate(fechaGaleria.getDate() + nuevoIdx);
+  await cargarDiaGaleria(formatearFecha(fechaGaleria));
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('galeria').classList.contains('abierta')) {
+    if (e.key === 'ArrowRight') navegarGaleria(1);
+    if (e.key === 'ArrowLeft') navegarGaleria(-1);
+    if (e.key === 'Escape') cerrarGaleria();
+  }
+});
+
+// INICIAR
+function iniciarApp() {
+  mostrarBienvenida();
+  renderFechasEspeciales();
+}
+
+crearEstrellas();
+</script>
+</body>
+</html>
