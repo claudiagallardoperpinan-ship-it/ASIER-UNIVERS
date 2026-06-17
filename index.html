@@ -546,7 +546,7 @@ async function cargarDiaGaleria(dateStr) {
 
   let imgUrl = '';
   if (apod.media_type === 'image') {
-    imgUrl = apod.hdurl || apod.url;
+    imgUrl = apod.url;
   } else {
     imgUrl = apod.thumbnail_url || '';
   }
