@@ -611,6 +611,7 @@ function iniciarEstrellasFugaces() {
 function checkPassword() {
   const input = document.getElementById('pwd-input').value;
   if (input === PASSWORD) {
+    try { localStorage.setItem(LS_PREFIX + 'auth', '1'); } catch (e) {}
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
     iniciarApp();
@@ -702,6 +703,17 @@ const cache = {};
 
 // Guardar en localStorage con prefijo para no mezclar con otras webs
 const LS_PREFIX = 'asier_univers_apod_';
+
+// Si ya nos autenticamos antes en este navegador, saltar el login
+(function comprobarAccesoGuardado() {
+  try {
+    if (localStorage.getItem(LS_PREFIX + 'auth') === '1') {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      iniciarApp();
+    }
+  } catch (e) {}
+})();
 
 function guardarEnLocal(dateStr, data) {
   try {
